@@ -52,6 +52,13 @@ class LoggerInit:
             print(sys.modules['__main__'])
             filename = "logs/%s.log" % os.path.basename(sys.argv[0].rstrip('.py'))
             print("log file: %s" % filename)
+
+            if not os.path.exists("logs"):
+                os.mkdir('logs')
+
+            if not os.path.exists(filename):
+                open(filename, 'w').close()
+
             file_handler = logging.FileHandler(filename, mode=filemode)
             file_handler.setLevel(level)
             file_handler.setFormatter(logging.Formatter(
@@ -61,7 +68,7 @@ class LoggerInit:
         console_handler = logging.StreamHandler()
         console_handler.setLevel(level)
         console_handler.setFormatter(ColoredFormatter(
-            '%(levelname)s - %(filename)s:%(funcName)s:%(lineno)d - %(message)s'))
+            '%(process)d %(levelname)s - %(filename)s:%(funcName)s:%(lineno)d - %(message)s'))
 
         logger.addHandler(console_handler)
 

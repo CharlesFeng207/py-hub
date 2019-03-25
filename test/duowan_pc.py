@@ -1,38 +1,56 @@
 # coding:utf8
 
-from common import req_utils,browser_utils
+from common import req_utils, browser_utils
+from common.logger_init import LoggerInit
 from lxml import etree
+import logging
+import multiprocessing
+from multiprocessing import Lock
+import time
+from common.settings import Settings
 
 
 def do(url):
+    logging.info(url)
 
-    print(url)
+    content = req_utils.get_page_code(url, 'utf-8')
+    selector = etree.HTML(content)
 
-    driver = browser_utils.get_webdriver_from_settings()
-    driver.get(url)
-    selector = etree.HTML(driver.page_source)
-
-    r = selector.xpath('//*[@id="main"]/div/dl/dd/h4/a/text()')
-    print(r)
-
-    if any(map(lambda x: "暗黑" in str(x), r)):
-        print("here!")
+    try:
+        r = selector.xpath('//*[@id="main"]/div/dl/dd/h4/a/text()')
+    except:
+        logging.fatal("Parse %s failed" % url)
+        logging.info(content)
+        browser_utils.save_screenshot(pagecode=content)
         return
 
-    # find next
+    logging.info(r)
 
+
+    # if any(map(lambda x: "暗黑" in str(x), r)):
+    #     print("here!")
+    #     return
+
+    # find next
     r = selector.xpath("//*[@id='yw0']/a[text()='>>']/@href")
+
+    # time.sleep(1)
 
     if len(r) > 0 and str(r[0]) != url:
         do(str(r[0]))
     else:
-        print("completed!")
+        logging.info("completed!")
 
 
-print(req_utils.get_my_ip())
-do("http://tvgdb.duowan.com/pc")
+# Settings.socks_proxy = "127.0.0.1:1086"
+LoggerInit.init(level=logging.INFO, filemode=None)
+logging.info(req_utils.get_my_ip())
+# browser_utils.save_screenshot("https://www.ip.cn/")
 
+if __name__ == '__main__':
+    p1 = multiprocessing.Process(target=do, args=("http://tvgdb.duowan.com/pc?page=200",))
+    p1.start()
+    # p1.daemon=True
+    # p1.join()
 
-
-
-
+    do("http://tvgdb.duowan.com/pc")

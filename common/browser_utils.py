@@ -9,7 +9,7 @@ def get_webdriver():
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
 
-    # Configure Proxy Option
+    # Configure Proxy option
     proxy = Proxy()
 
     if Settings.socks_proxy is None and Settings.https_proxy is None and Settings.https_proxy is None:

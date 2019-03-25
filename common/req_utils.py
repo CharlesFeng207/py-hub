@@ -13,6 +13,8 @@ def get_page_code(url, decoding=None):
     if Settings.socks_proxy is not None:
         proxies["http"] = proxies["https"] = Settings.get_full_socks_proxy()
     else:
+        proxies["http"] = proxies["https"] = None
+
         if Settings.http_proxy is not None:
             proxies["http"] = Settings.http_proxy
         if Settings.https_proxy is not None:
@@ -43,5 +45,3 @@ def get_my_ip():
     ip = selector.xpath('//*[@id="result"]/div/p[1]/code/text()')[0]
     location = selector.xpath('//*[@id="result"]/div/p[2]/code/text()')[0]
     return ip + " " + location
-
-

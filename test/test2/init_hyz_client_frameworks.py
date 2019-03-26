@@ -33,7 +33,7 @@ for task in tasks:
     else:
         r = 0
         prefix = prefix.replace("\\", "/")
-        cmd = "git subtree add --prefix={} {} {} --squash".format(prefix, task[1], task[2])
+        cmd = "git subtree add --prefix={} {} {} --squash".format(prefix, task[1], task[2]) 
         print(cmd)
         r = os.system(cmd)
         if r != 0:

@@ -41,11 +41,12 @@ def do(url):
     else:
         logging.info("completed!")
 
+#
+# if __name__ == '__main__':
+#     Settings.socks_proxy = "127.0.0.1:1086"
 
-if __name__ == '__main__':
-    Settings.socks_proxy = "127.0.0.1:1080"
 
-LoggerInit.init(level=logging.INFO, filemode=None)
+LoggerInit.init(level=logging.INFO, filemode="a")
 logging.info(req_utils.get_my_ip())
 # browser_utils.save_screenshot("https://www.ip.cn/")
 

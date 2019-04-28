@@ -5,7 +5,7 @@ import sys
 import aiohttp
 from aiohttp import web
 from aiohttp_session import get_session
-
+import random
 
 class Handers:
     routes = web.RouteTableDef()
@@ -20,7 +20,7 @@ class Handers:
 
     @routes.get('/json', name="myjson")
     async def myjson(request):
-        data = {'some': 'data'}
+        data = {'some': 'data' + str(random.randint(0, 1000))}
         return web.json_response(data)
 
     @routes.get('/session')

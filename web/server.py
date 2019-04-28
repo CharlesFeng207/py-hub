@@ -26,4 +26,4 @@ sslcontext.check_hostname = False
 sslcontext.verify_mode = ssl.CERT_NONE
 sslcontext.load_cert_chain('cert.pem', 'key.pem')
 
-web.run_app(app, ssl_context=sslcontext)
+web.run_app(app)

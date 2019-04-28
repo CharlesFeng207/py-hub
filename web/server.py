@@ -5,6 +5,8 @@ from aiohttp_session import setup, get_session, session_middleware
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from cryptography import fernet
 import base64
+import ssl
+from ssl import Purpose
 
 
 app = web.Application()
@@ -19,4 +21,10 @@ setup(app, EncryptedCookieStorage(secret_key))
 for resource in app.router.resources():
     print(resource)
 
-web.run_app(app)
+
+sslcontext = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)
+sslcontext.check_hostname = False
+sslcontext.verify_mode = ssl.CERT_NONE
+sslcontext.load_cert_chain('cert.pem', 'key.pem')
+
+web.run_app(app, ssl_context=sslcontext)

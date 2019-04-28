@@ -24,6 +24,8 @@ for resource in app.router.resources():
 sslcontext = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)
 sslcontext.check_hostname = False
 sslcontext.verify_mode = ssl.CERT_NONE
-sslcontext.load_cert_chain('cert.pem', 'key.pem')
+
+
+sslcontext.load_cert_chain('web/cert.pem', 'web/key.pem')
 
 web.run_app(app)

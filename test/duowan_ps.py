@@ -26,7 +26,7 @@ def do(urlbase, urlpage):
         print("completed!")
 
 
-print(req_utils.get_my_ip())
+print(req_utils.get_my_ip_info())
 do("http://psp.duowan.com/0804/", "m_73013382452.html")
 
 

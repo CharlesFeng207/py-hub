@@ -28,4 +28,4 @@ sslcontext.verify_mode = ssl.CERT_NONE
 
 sslcontext.load_cert_chain('web/cert.pem', 'web/key.pem')
 
-web.run_app(app)
+web.run_app(app, ssl_context=sslcontext)

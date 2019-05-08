@@ -7,7 +7,7 @@ from cryptography import fernet
 import base64
 import ssl
 from ssl import Purpose
-
+import aiohttp
 
 app = web.Application()
 app.add_routes(Handers.routes)
@@ -21,10 +21,11 @@ setup(app, EncryptedCookieStorage(secret_key))
 for resource in app.router.resources():
     print(resource)
 
-
 sslcontext = ssl.create_default_context(purpose=Purpose.SERVER_AUTH)
 sslcontext.check_hostname = False
 sslcontext.verify_mode = ssl.CERT_NONE
-sslcontext.load_cert_chain('cert.pem', 'key.pem')
+
+
+sslcontext.load_cert_chain('web/cert.pem', 'web/key.pem')
 
 web.run_app(app, ssl_context=sslcontext)

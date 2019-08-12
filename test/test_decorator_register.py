@@ -1,6 +1,21 @@
-def deco(func):
-    print("deco")
-    return func
+import functools
+
+
+def log(text):
+    print("1")
+
+    def decorator(func):
+        print("2")
+
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            print("3")
+            print('%s %s():' % (text, func.__name__))
+            return func(*args, **kw)
+
+        return wrapper
+
+    return decorator
 
 
 class TestClass(object):
@@ -38,9 +53,8 @@ def my_func2(msg):
     print(f'this is the message from run: {msg}')
 
 
-@deco
+@log("asd")
 def my_func3():
     print(f'my_func3')
 
-
-test.run()
+# test.run()

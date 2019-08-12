@@ -23,6 +23,7 @@ print(remotepath)
 cnopts = pysftp.CnOpts()
 cnopts.hostkeys = None
 
-srv = pysftp.Connection(host=config["host"], username=config["username"], password=config["password"], cnopts=cnopts)
+srv = pysftp.Connection(host=config["host"], port=config["port"], username=config["username"],
+                        password=config["password"], cnopts=cnopts)
 srv.put(localpath, remotepath)
 srv.close()

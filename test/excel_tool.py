@@ -31,7 +31,7 @@ def process(path_src):
 
     for target_letter in target_cols:
         name_cell = sheet_src["{}{}".format(target_letter, 1)]
-        name_cell.value = name_cell.value + "_"
+        name_cell.value = name_cell.value + "_id"
         
         type_cell = sheet_src["{}{}".format(target_letter, 2)]
         type_cell.comment = Comment("language done!", "excel_tool")

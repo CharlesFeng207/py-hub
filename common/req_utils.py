@@ -40,7 +40,7 @@ def get_xpath_selector(url, decoding=None):
     return selector
 
 
-def get_my_ip():
+def get_my_ip_info():
     selector = get_xpath_selector("https://www.ip.cn/")
     ip = selector.xpath('//*[@id="result"]/div/p[1]/code/text()')[0]
     location = selector.xpath('//*[@id="result"]/div/p[2]/code/text()')[0]

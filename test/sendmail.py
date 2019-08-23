@@ -10,9 +10,8 @@ from email.mime.text import MIMEText
 if __name__ == '__main__':
 
     # load config
-    f = open(os.path.join(sys.path[0], "sendmail.json"), 'r')
-    config = json.load(f)
-    f.close()
+    with open(os.path.join(sys.path[0], "sendmail.json"), 'r') as f:
+        config = json.load(f)
 
     print(config)
 

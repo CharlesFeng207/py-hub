@@ -47,7 +47,7 @@ def do(url):
 
 
 LoggerInit.init(level=logging.INFO, filemode="a")
-logging.info(req_utils.get_my_ip())
+logging.info(req_utils.get_my_ip_info())
 # browser_utils.save_screenshot("https://www.ip.cn/")
 
 if __name__ == '__main__':

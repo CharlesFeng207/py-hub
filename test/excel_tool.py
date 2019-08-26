@@ -1,3 +1,4 @@
+# coding:utf-8
 from openpyxl import Workbook
 from openpyxl.reader.excel import load_workbook
 from openpyxl.utils import get_column_letter
@@ -11,7 +12,7 @@ import sys
 def process(path_src):
     name_src = os.path.basename(path_src)
 
-    workbook_src = load_workbook(path_src)
+    workbook_src = load_workbook(path_src, data_only=True)
     shert_name = list(filter(lambda x:x[0] != '@' and x[0] != '#', workbook_src.sheetnames))[0]
     print(shert_name)
 
@@ -43,7 +44,7 @@ def process(path_src):
             if cell.value is not None:
                 respond = None
                 while True:
-                    isLast = row == sheet_src.max_row
+                    isLast = "1" if row == sheet_src.max_row else "0"
                     respond = requests.get('http://139.155.88.114:5000/query', {"content":cell.value, "save":isLast})
                     if respond.status_code == 200:
                         break

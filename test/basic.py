@@ -16,6 +16,8 @@ s = '漢  \n χαν  хан \ud83d\ude2c\ud83d\ude2c'
 # u = s.encode('unicode-escape').decode('utf-8')
 print('解回字符串: ' + s.encode("utf-8", "ignore").decode('utf-8'))
 
+print(b"\351\273\204\351\207\221".decode("utf-8"))
+
 with open('test.txt', "w+", encoding="utf-8", errors="ignore") as out_file:
     out_file.write(s)
 

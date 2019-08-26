@@ -45,7 +45,9 @@ def process(path_src):
                 respond = None
                 while True:
                     isLast = "1" if row == sheet_src.max_row else "0"
-                    respond = requests.get('http://139.155.88.114:5000/query', {"content":cell.value, "save":isLast})
+                    # url = 'http://139.155.88.114:5000/query'
+                    url = 'http://127.0.0.1:5000/query'
+                    respond = requests.get(url, {"content":cell.value, "save":isLast})
                     if respond.status_code == 200:
                         break
                 cell.comment = Comment(cell.value, "excel_tool")

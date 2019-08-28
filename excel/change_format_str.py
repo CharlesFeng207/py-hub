@@ -26,10 +26,7 @@ def process(path_src):
             continue
 
         cell_value = str(cell.value)
-        start_index = cell_value.index(">") + 1
-        end_index = cell_value.rindex("<")
-        
-        result = cell_value[0:cell_value.index(">") + 1] + "{0}" + cell_value[end_index:len(cell_value)]
+        result = cell_value[0:cell_value.index(">") + 1] + "{0}" + cell_value[cell_value.rindex("<"):len(cell_value)]
         print(result)
         cell.value = result
 

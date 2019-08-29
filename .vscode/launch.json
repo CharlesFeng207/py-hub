@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["‪C:\\Users\\Charles\\Desktop\\Activity.xlsx"]
+            "args": ["‪C:\\Users\\Charles\\Desktop\\新建文本文档.txt"]
         }
     ]
 }

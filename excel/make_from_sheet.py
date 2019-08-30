@@ -8,9 +8,9 @@ from requests import Response
 import os
 import sys
 
-
-def process(path_src):
-
+       
+if __name__ == "__main__":
+    path_src = "Language.xlsx"
     workbook_src = load_workbook(path_src, data_only=True)
     shert_name = list(filter(lambda x:x[0] != '@' and x[0] != '#', workbook_src.sheetnames))[0]
     print(shert_name)
@@ -26,15 +26,10 @@ def process(path_src):
         if cell.value is None:
             continue
 
-        pendingList.append(str(cell.value))
+        pendingList.append("{}".format(str(cell.value)))
     
     print("count:{}".format(len(pendingList)))
-    with open("result.txt", "w+") as f:
-        f.write("\n\n\n\n\n\n".join(pendingList))
-       
-if __name__ == "__main__":
-    path_src = sys.argv[1]
-    print(path_src)
-    process(path_src)
+    with open("output.txt", "w+") as f:
+        f.write("\n@\n".join(pendingList))
     print("done!")
 

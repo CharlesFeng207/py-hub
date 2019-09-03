@@ -79,10 +79,12 @@ if __name__ == "__main__":
 
             i = 1
             for r in marked:
-                nsheet["A{}".format(i)].value = sheet_src["A{}".format(r)].value
-                nsheet["B{}".format(i)].value = sheet_src["B{}".format(r)].value
+                nsheet["A{}".format(
+                    i)].value = sheet_src["A{}".format(r)].value
+                nsheet["B{}".format(
+                    i)].value = sheet_src["B{}".format(r)].value
                 # nsheet["C{}".format(i)].value = sheet_src["C{}".format(r)].value
-                i+=1
+                i += 1
 
             nwb.save("translate.xlsx")
 

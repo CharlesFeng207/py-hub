@@ -13,7 +13,8 @@ def process(path_src):
     name_src = os.path.basename(path_src)
 
     workbook_src = load_workbook(path_src, data_only=True)
-    shert_name = list(filter(lambda x:x[0] != '@' and x[0] != '#', workbook_src.sheetnames))[0]
+    shert_name = list(
+        filter(lambda x: x[0] != '@' and x[0] != '#', workbook_src.sheetnames))[0]
     print(shert_name)
 
     sheet_src = workbook_src[shert_name]
@@ -25,8 +26,8 @@ def process(path_src):
         if cell.value is None:
             break
         if cell.comment is not None and "language done" in cell.comment.content:
-            target_cols.append(get_column_letter(i))
-        i+=1
+            target_cols.append(get_column_letter(i+1))
+        i += 1
 
     print(target_cols)
 
@@ -36,26 +37,36 @@ def process(path_src):
 
     for target_letter in target_cols:
         for row in range(5, sheet_src.max_row + 1):
-            cell = sheet_src["{}{}".format(target_letter, row)]
-            print("{} cur:{} total:{} value:{}".format(name_src, row, sheet_src.max_row, cell.value))
-            if cell.value is not None:
+            cell_name = "{}{}".format(target_letter, row)
+            cell = sheet_src[cell_name]
+           
+            print("{} cur:{} total:{} value:{} cell:{}".format(
+                name_src, row, sheet_src.max_row, cell.value, cell_name))
+
+            cell_value = int(cell.value) if cell.value is not None else 0 
+
+            comment_cell = sheet_src["A{}".format(row)]
+            if comment_cell.value is None:
+                comment_cell.value = ""
+
+            if cell_value != 0:
                 respond = None
                 while True:
-                    save = row == sheet_src.max_row
-                    url = 'http://139.155.88.114:5000/query_cn'
-                    respond = requests.get(url, {"lanId":cell.value})
+                    # url = 'http://139.155.88.114:5000/query_cn'
+                    url = 'http://127.0.0.1:5000/query_cn'
+                    respond = requests.get(url, {"lanId": cell_value})
                     if respond.status_code == 200:
                         break
-                comment_cell = sheet_src["A{}".format(row)]
-                if comment_cell.value is None:
-                    comment_cell.value = ""
-
-               comment_cell.value += (" " + respond.text)
-               pass
+                comment_cell.value += (" " + respond.text)
+                print(comment_cell.value)
+                pass
+            
             pass
         pass
-           
+
     workbook_src.save(name_src)
+    print("saved")
+
 
 if __name__ == "__main__":
     path_src = sys.argv[1]
@@ -63,11 +74,11 @@ if __name__ == "__main__":
 
     if os.path.isdir(path_src):
         files = os.listdir(path_src)
-        for i,filename in enumerate(files):
+        for i, filename in enumerate(files):
             print("process {}, {} / {}".format(filename, i+1, len(files)))
             process(os.path.join(path_src, filename))
     else:
         process(path_src)
-    
-    print("done!")
+        pass
 
+    print("done!")

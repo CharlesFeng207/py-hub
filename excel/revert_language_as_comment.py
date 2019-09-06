@@ -31,14 +31,14 @@ def process(path_src):
         if cell.value is None:
             break
         if cell.comment is not None and "language done" in cell.comment.content:
-            target_cols.append(get_column_letter(i+1))
+            target_cols.append(get_column_letter(i))
         i += 1
 
     print(target_cols)
 
-    if len(target_cols) > 0 and sheet_src["A1"].value != "#comment":
-        sheet_src.insert_cols(0, 1)
-        sheet_src["A1"].value = "#comment"
+    # if len(target_cols) > 0 and sheet_src["A1"].value != "#comment":
+    #     sheet_src.insert_cols(0, 1)
+    #     sheet_src["A1"].value = "#comment"
 
     for target_letter in target_cols:
         for row in range(5, sheet_src.max_row + 1):

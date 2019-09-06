@@ -10,7 +10,12 @@ import sys
 
 
 def process(path_src):
+    
     name_src = os.path.basename(path_src)
+
+    if os.path.exists(name_src):
+        print("exists return")
+        return
 
     workbook_src = load_workbook(path_src, data_only=True)
     shert_name = list(

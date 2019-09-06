@@ -17,28 +17,44 @@ if __name__ == "__main__":
     outputFolder = "done"
     files = os.listdir(outputFolder)
     pending = {}  # id -> {} (cn en bgcolor)
+
+    total = 0
+    markcount = 0
     for i, filename in enumerate(files):
         print("process {}, {} / {}".format(filename, i+1, len(files)))
         workbook_p = load_workbook(os.path.join(
             outputFolder, filename), data_only=True)
         s = workbook_p["work"]
         for row in range(1, s.max_row + 1):
-            cell_id = int(s["A{}".format(row)].value)
+            id_cell = s["A{}".format(row)]
+            if id_cell is None or id_cell.value is None:
+                continue
+            cell_id = int(id_cell.value)
             cn_cell = s["B{}".format(row)]
             en_cell = s["C{}".format(row)]
-            color = None
+
+            mark = False
+
+            if id_cell.fill.end_color.index != colors.BLACK:
+                mark = True
 
             if cn_cell.fill.end_color.index != colors.BLACK:
-                color = cn_cell.fill.end_color.index
+                mark = True
 
             if en_cell.fill.end_color.index != colors.BLACK:
-                color = en_cell.fill.end_color.index
+                mark = True
 
-            obj = {"cn": cn_cell.value, "en": en_cell.value, "color": color}
-            print("id:{} obj:{}".format(cell_id, obj))
+            obj = {"cn": cn_cell.value, "en": en_cell.value, "mark": mark}
             pending[cell_id] = obj
+            print(f"id:{cell_id} obj:{obj}")
+
+            total += 1
+            if mark:
+                markcount += 1
             pass
         pass
+
+    print(markcount, total)
 
     if input("press y to contionue:") == "y":
         path_src = "Language.xlsx"
@@ -49,25 +65,27 @@ if __name__ == "__main__":
         sheet_src = workbook_src[shert_name]
         start_row = 3
 
-        total = 0
         marked = []
         for row in range(start_row, sheet_src.max_row + 1):
             i = int(sheet_src["A{}".format(row)].value)
 
-            # if sheet_src["C{}".format(row)].fill.end_color.index != colors.BLACK:
-            #     print(sheet_src["B{}".format(row)].value)
-
             if i in pending:
-                sheet_src["B{}".format(row)].value = pending[i]["cn"]
-                sheet_src["C{}".format(row)].value = pending[i]["en"]
+                oldcn = sheet_src["B{}".format(row)].value
+                
+                if oldcn != pending[i]["cn"]:
+                    sheet_src["B{}".format(row)].value = pending[i]["cn"]
+                    print(f"{oldcn} -> {pending[i]['cn']}")
 
-                if pending[i]["color"] is not None:
+                olden = sheet_src["C{}".format(row)].value
+                if olden != pending[i]["en"]:
+                    sheet_src["C{}".format(row)].value = pending[i]["en"]
+                    print(f"{olden} -> {pending[i]['en']}")
+
+                if pending[i]["mark"]:
                     myFill = PatternFill(
                         start_color='F5DEB300', end_color='F5DEB300', fill_type='solid')
                     sheet_src["C{}".format(row)].fill = myFill
                     marked.append(row)
-
-                print("id {} applied! {}".format(i, pending[i]))
 
         workbook_src.save(path_src)
 

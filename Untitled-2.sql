@@ -5,7 +5,7 @@
 /* INSERT INTO language (cn) VALUES ("你妹"); */
 /* ALTER TABLE language Auto_increment=12426; */
 /* SELECT * FROM `language`.`language` where lanId=0; */
-/* SELECT * FROM `language` where lanId>12400; */
+SELECT * FROM `language` where lanId=11906;
 /* SELECT * FROM `language` where cn="限 时"; */
 /* INSERT INTO language ( lanId, cn, en, zh, jp, ko ) VALUES (0, "", "", "", "", ""); */
 /* select count(*) from language; */

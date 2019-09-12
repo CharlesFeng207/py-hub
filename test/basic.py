@@ -32,3 +32,9 @@ if __name__ == "__main__":
     test_func("main")
 
 
+    testStr = "asd"
+    testInt = 123
+
+    print(f"testStr:{testStr} testInt:{testInt}")
+
+

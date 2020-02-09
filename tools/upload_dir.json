@@ -1,0 +1,8 @@
+{
+  "host":"139.155.88.114",
+  "username":"root",
+  "password":"",
+  "localdir":"/Users/Charles/youtube",
+  "remotedir":"/root/youtube",
+  "port":22
+}

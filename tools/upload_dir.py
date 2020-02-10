@@ -13,7 +13,7 @@ def run():
     os.chdir(localdir)
     files = os.listdir(localdir)
     for filename in files:
-        if filename == "url.txt" or any(lambda x: filename.endswith(x), [".vtt", ".ytdl", ".m4a", ".part", ".DS_Store"]):
+        if filename == "url.txt" or any(map(lambda x: filename.endswith(x), [".vtt", ".ytdl", ".m4a", ".part", ".DS_Store"])):
             continue
 
         if not srv:

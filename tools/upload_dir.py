@@ -74,6 +74,7 @@ with open(config_path, 'r') as f:
 print(config)
 
 localdir = config["localdir"]
+
 if not os.path.isdir(localdir):
     raise Exception(f"{localdir} is not dir!")
 

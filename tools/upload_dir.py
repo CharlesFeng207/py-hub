@@ -13,7 +13,7 @@ def run():
     os.chdir(localdir)
     files = os.listdir(localdir)
     for i, filename in enumerate(files):
-        if filename.endswith(".part"):
+        if filename.endswith(".part") or filename == "url.txt" or filename.endswith(".DS_Store"):
             continue
 
         if not srv:

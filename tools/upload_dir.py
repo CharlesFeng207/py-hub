@@ -55,10 +55,10 @@ def printProgressDecimal(x, y):
 
 config_path = None
 
-for a in sys.argv:
-    if a.startswith("-c"):
-        config_path = a.split(" ")[-1]
-        pass
+for i, a in enumerate(sys.argv):
+    if a == "-c":
+        config_path = a[i + 1]
+        break
     pass
 
 

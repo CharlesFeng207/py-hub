@@ -16,9 +16,10 @@ def run():
         if filename == "url.txt" or any(map(lambda x: filename.endswith(x), [".vtt", ".ytdl", ".m4a", ".part", ".DS_Store"])):
             continue
 
-        if len(filename.split(".")) >= 3 and filename.split(".")[-2].startswith("f"):
-            print(f"{filename} skiped")
-            continue
+        if len(filename.split(".")) >= 3:
+            if filename.split(".")[-2].startswith("f") or filename.split(".")[-2] == "temp":
+                print(f"{filename} skiped")
+                continue
 
         if not srv:
             cnopts = pysftp.CnOpts()

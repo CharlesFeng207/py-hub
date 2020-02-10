@@ -16,6 +16,10 @@ def run():
         if filename == "url.txt" or any(map(lambda x: filename.endswith(x), [".vtt", ".ytdl", ".m4a", ".part", ".DS_Store"])):
             continue
 
+        if len(filename.split(".")) >= 3 and filename.split(".")[-2].startswith("f"):
+            print(f"{filename} skiped")
+            continue
+
         if not srv:
             cnopts = pysftp.CnOpts()
             cnopts.hostkeys = None
@@ -49,7 +53,20 @@ def printProgressDecimal(x, y):
         progressDict[str(int(100*(int(x)/int(y))))] = "1"
 
 
-with open(os.path.join(sys.path[0], "upload_dir.json"), 'r') as f:
+config_path = None
+
+for a in sys.argv:
+    if a.startswith("-c"):
+        config_path = a.split(" ")[-1]
+        pass
+    pass
+
+
+if not config_path:
+    config_path = os.path.join(sys.path[0], "upload_dir.json")
+    pass
+
+with open(config_path, 'r') as f:
     config = json.load(f)
 
 print(config)
@@ -58,7 +75,7 @@ localdir = config["localdir"]
 if not os.path.isdir(localdir):
     raise Exception(f"{localdir} is not dir!")
 
-if len(sys.argv) > 1 and sys.argv[1] == "-t":
+if any(map(lambda x: x == "-t"), sys.argv):
     while True:
         run()
         sleep(5)

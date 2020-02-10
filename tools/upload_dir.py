@@ -12,8 +12,8 @@ def run():
     srv = None
     os.chdir(localdir)
     files = os.listdir(localdir)
-    for i, filename in enumerate(files):
-        if filename.endswith(".part") or filename == "url.txt" or filename.endswith(".DS_Store"):
+    for filename in files:
+        if filename == "url.txt" or any(lambda x: filename.endswith(x), [".vtt", ".ytdl", ".m4a", ".part", ".DS_Store"]):
             continue
 
         if not srv:
@@ -23,7 +23,7 @@ def run():
                                     password=config["password"], cnopts=cnopts)
 
         remotepath = config["remotedir"] + "/" + filename
-        print("process {}, {} / {}".format(filename, i+1, len(files)))
+        print(f"process {filename}")
         print(f"{filename} -> {remotepath} ...")
         srv.put(filename, remotepath, callback=printProgressDecimal)
         os.remove(filename)

@@ -29,7 +29,7 @@ def run():
         os.remove(filename)
         print(f"{filename} deleted!")
         pass
-    if not srv:
+    if srv:
         srv.close()
         srv = None
 

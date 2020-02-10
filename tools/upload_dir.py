@@ -28,11 +28,11 @@ def run():
         srv.put(filename, remotepath, callback=printProgressDecimal)
         os.remove(filename)
         print(f"{filename} deleted!")
+        pass
+    if not srv:
+        srv.close()
+        srv = None
 
-
-if not srv:
-    srv.close()
-    srv = None
 
 progressDict = {}
 progressEveryPercent = 10

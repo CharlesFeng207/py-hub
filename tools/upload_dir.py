@@ -76,7 +76,7 @@ localdir = config["localdir"]
 if not os.path.isdir(localdir):
     raise Exception(f"{localdir} is not dir!")
 
-if any(map(lambda x: x == "-t"), sys.argv):
+if any(map(lambda x: x == "-t", sys.argv)):
     while True:
         run()
         sleep(5)

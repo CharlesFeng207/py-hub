@@ -71,7 +71,7 @@ if not config_path:
 
 print(f"config_path: {config_path}")
 
-with open(config_path, 'r') as f:
+with open(config_path, 'r') as f: 
     config = json.load(f)
 
 print(config)

@@ -4,6 +4,6 @@ import sys
 import os
 
 a = " ".join(sys.argv[1:])
-cmd = f"sudo nohub youtube-dl {a} --proxy socks5://127.0.0.1:1080 --write-auto-sub --sub-lang en --convert-subs srt"
+cmd = f"sudo nohup youtube-dl {a} --proxy socks5://127.0.0.1:1080 --write-auto-sub --sub-lang en --convert-subs srt"
 # print(cmd)
 os.system(cmd)

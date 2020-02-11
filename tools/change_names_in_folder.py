@@ -5,7 +5,7 @@ import shutil
 if __name__ == "__main__":
     path_src = sys.argv[1]
     print(path_src)
-
+    
     if os.path.isdir(path_src):
         os.chdir(path_src)
         files = os.listdir(path_src)

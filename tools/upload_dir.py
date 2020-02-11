@@ -69,6 +69,8 @@ if not config_path:
     config_path = os.path.join(sys.path[0], "upload_dir.json")
     pass
 
+print(f"config_path: {config_path}")
+
 with open(config_path, 'r') as f:
     config = json.load(f)
 

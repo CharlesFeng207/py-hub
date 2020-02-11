@@ -66,7 +66,7 @@ for i, a in enumerate(sys.argv):
 
 
 if not config_path:
-    config_path = os.path.join(sys.path[0], "upload_dir.json")
+    config_path = "upload_dir.json"
     pass
 
 print(f"config_path: {config_path}")

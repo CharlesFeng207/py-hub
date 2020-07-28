@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     while True:
         try:
-            data, addr = s.recvfrom(10240)
+            data, addr = s.recvfrom(1024000)
             info = data.decode(encoding="utf-8")
             msg = json.loads(info)
 

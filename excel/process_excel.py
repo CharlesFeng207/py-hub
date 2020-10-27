@@ -13,7 +13,6 @@ def process(path_src):
 
     workbook_src = load_workbook(path_src, data_only=True)
     for shert_name in workbook_src.sheetnames:
-        print(shert_name)
         sheet_src = workbook_src[shert_name]
         for col in range(1, sheet_src.max_column + 1):
             letter = get_column_letter(col)
